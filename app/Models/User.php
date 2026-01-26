@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Billable;
+    use Billable, HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -58,7 +58,7 @@ class User extends Authenticatable
      */
     public function hasSubscription(string $plan): bool
     {
-        return $this->subscribed('default') && 
+        return $this->subscribed('default') &&
                $this->subscription('default')->stripe_price === config("services.stripe.plans.{$plan}");
     }
 
@@ -70,6 +70,7 @@ class User extends Authenticatable
         if ($this->subscribed('default')) {
             return PHP_INT_MAX; // Unlimited for PRO and PRO+
         }
+
         return 25; // Free tier limit
     }
 
@@ -81,4 +82,3 @@ class User extends Authenticatable
         return $this->vaultItems()->count() < $this->getMaxVaultItems();
     }
 }
-

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\VaultItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -87,7 +86,7 @@ class VaultController extends Controller
         $user = $request->user();
         $vaultItem = $user->vaultItems()->find($id);
 
-        if (!$vaultItem) {
+        if (! $vaultItem) {
             return response()->json([
                 'error' => 'Vault item not found',
             ], 404);
@@ -115,7 +114,7 @@ class VaultController extends Controller
         $user = $request->user();
         $vaultItem = $user->vaultItems()->find($id);
 
-        if (!$vaultItem) {
+        if (! $vaultItem) {
             return response()->json([
                 'error' => 'Vault item not found',
             ], 404);

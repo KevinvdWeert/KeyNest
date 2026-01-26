@@ -12,6 +12,7 @@ class SubscriptionController extends Controller
     public function index()
     {
         $user = auth()->user();
+
         return view('billing.index', [
             'user' => $user,
             'subscription' => $user->subscription('default'),
@@ -24,10 +25,10 @@ class SubscriptionController extends Controller
     public function checkout(Request $request, string $plan)
     {
         $user = $request->user();
-        
+
         $priceId = config("services.stripe.plans.{$plan}");
-        
-        if (!$priceId) {
+
+        if (! $priceId) {
             return redirect()->back()->with('error', 'Invalid plan selected.');
         }
 

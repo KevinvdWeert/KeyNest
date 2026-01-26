@@ -17,13 +17,13 @@ class CheckSubscriptionLimit
     {
         $user = $request->user();
 
-        if (!$user) {
+        if (! $user) {
             return response()->json(['error' => 'Unauthenticated'], 401);
         }
 
         // Only check limits for POST requests (creating new items)
         if ($request->isMethod('post')) {
-            if (!$user->canAddVaultItem()) {
+            if (! $user->canAddVaultItem()) {
                 return response()->json([
                     'error' => 'Vault limit reached',
                     'message' => 'You have reached the maximum number of vault items for your subscription plan. Please upgrade to add more items.',
