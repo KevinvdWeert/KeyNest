@@ -8,6 +8,18 @@
         <div class="bg-white shadow-md rounded-lg px-8 py-6">
             <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">🔐 KeyNest Login</h2>
             
+            @if (session('error'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             @if ($errors->any())
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                     <ul>
@@ -77,4 +89,30 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    // Refresh CSRF token every 10 minutes to prevent "Page Expired" errors
+    setInterval(function() {
+        fetch('/csrf-token')
+            .then(response => response.json())
+            .then(data => {
+                // Update meta tag
+                document.querySelector('meta[name="csrf-token"]').setAttribute('content', data.token);
+                
+                // Update form token
+                const csrfInput = document.querySelector('input[name="_token"]');
+                if (csrfInput) {
+                    csrfInput.value = data.token;
+                }
+                
+                // Update Laravel global object if it exists
+                if (window.Laravel) {
+                    window.Laravel.csrfToken = data.token;
+                }
+            })
+            .catch(error => console.error('Error refreshing CSRF token:', error));
+    }, 600000); // 10 minutes
+</script>
+@endpush
 @endsection
