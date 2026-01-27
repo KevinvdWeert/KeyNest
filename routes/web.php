@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,31 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// Authentication Routes
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Protected Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/vault', function () {
+        return view('vault');
+    })->name('vault');
+
+    // Billing Routes
+    Route::prefix('billing')->name('billing.')->group(function () {
+        Route::get('/', [SubscriptionController::class, 'index'])->name('index');
+        Route::get('/checkout/{plan}', [SubscriptionController::class, 'checkout'])->name('checkout');
+        Route::get('/success', [SubscriptionController::class, 'success'])->name('success');
+        Route::get('/portal', [SubscriptionController::class, 'portal'])->name('portal');
+        Route::post('/cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
+    });
 });
