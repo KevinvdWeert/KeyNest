@@ -19,10 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// CSRF Token Refresh Route
+// CSRF Token Refresh Route (with rate limiting)
 Route::get('/csrf-token', function () {
     return response()->json(['token' => csrf_token()]);
-})->name('csrf-token');
+})->name('csrf-token')->middleware('throttle:60,1');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {

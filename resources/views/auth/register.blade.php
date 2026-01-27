@@ -111,28 +111,6 @@
 </div>
 
 @push('scripts')
-<script>
-    // Refresh CSRF token every 10 minutes to prevent "Page Expired" errors
-    setInterval(function() {
-        fetch('/csrf-token')
-            .then(response => response.json())
-            .then(data => {
-                // Update meta tag
-                document.querySelector('meta[name="csrf-token"]').setAttribute('content', data.token);
-                
-                // Update form token
-                const csrfInput = document.querySelector('input[name="_token"]');
-                if (csrfInput) {
-                    csrfInput.value = data.token;
-                }
-                
-                // Update Laravel global object if it exists
-                if (window.Laravel) {
-                    window.Laravel.csrfToken = data.token;
-                }
-            })
-            .catch(error => console.error('Error refreshing CSRF token:', error));
-    }, 600000); // 10 minutes
-</script>
+    <x-csrf-refresh />
 @endpush
 @endsection
