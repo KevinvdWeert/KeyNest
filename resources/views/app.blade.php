@@ -18,6 +18,7 @@
         };
     </script>
     
+    @viteReactRefresh
     @vite(['resources/js/main.jsx'])
 </body>
 </html>

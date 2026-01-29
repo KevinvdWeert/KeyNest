@@ -35,7 +35,7 @@
                     // Show user-friendly notification
                     const notification = document.createElement('div');
                     notification.className = 'fixed top-4 right-4 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded shadow-lg z-50';
-                    notification.innerHTML = '⚠️ Session may have expired. Please refresh the page if you experience issues.';
+                    notification.innerHTML = 'Session may have expired. Please refresh the page if you experience issues.';
                     document.body.appendChild(notification);
                     
                     // Auto-remove notification after 5 seconds

@@ -12,6 +12,7 @@
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
 
     <!-- Styles -->
+    @viteReactRefresh
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Scripts -->
@@ -32,7 +33,7 @@
                     <div class="flex">
                         <div class="flex-shrink-0 flex items-center">
                             <a href="{{ route('dashboard') }}" class="text-xl font-bold text-indigo-600">
-                                🔐 KeyNest
+                                KeyNest
                             </a>
                         </div>
                         <div class="hidden sm:ml-6 sm:flex sm:space-x-8">

@@ -3,6 +3,12 @@ import VaultList from './components/VaultList';
 import AddItemModal from './components/AddItemModal';
 import EditItemModal from './components/EditItemModal';
 import MasterPasswordModal from './components/MasterPasswordModal';
+import {
+    clearSessionMasterPassword,
+    getRememberMasterPassword,
+    getSessionMasterPassword,
+    setSessionMasterPassword,
+} from '../utils/securitySettings';
 
 function App() {
     const [items, setItems] = useState([]);
@@ -14,6 +20,19 @@ function App() {
     const [maxItems, setMaxItems] = useState(25);
     const [currentCount, setCurrentCount] = useState(0);
     const [canAddMore, setCanAddMore] = useState(true);
+
+    useEffect(() => {
+        const remember = getRememberMasterPassword();
+        if (!remember) {
+            clearSessionMasterPassword();
+            return;
+        }
+
+        const saved = getSessionMasterPassword();
+        if (saved) {
+            setMasterPassword(saved);
+        }
+    }, []);
 
     useEffect(() => {
         if (masterPassword) {
@@ -93,6 +112,16 @@ function App() {
 
     const handleMasterPasswordSubmit = (password) => {
         setMasterPassword(password);
+        if (getRememberMasterPassword()) {
+            setSessionMasterPassword(password);
+        } else {
+            clearSessionMasterPassword();
+        }
+    };
+
+    const handleLockVault = () => {
+        setMasterPassword(null);
+        clearSessionMasterPassword();
     };
 
     if (!masterPassword) {
@@ -119,17 +148,27 @@ function App() {
                         {currentCount} / {maxItems === 9007199254740991 ? '∞' : maxItems} items
                     </p>
                 </div>
-                <button
-                    onClick={() => setShowAddModal(true)}
-                    disabled={!canAddMore}
-                    className={`px-4 py-2 rounded-lg font-medium ${
-                        canAddMore
-                            ? 'bg-indigo-500 text-white hover:bg-indigo-600'
-                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                >
-                    + Add Item
-                </button>
+                <div className="flex items-center gap-3">
+                    <button
+                        type="button"
+                        onClick={handleLockVault}
+                        className="px-4 py-2 rounded-lg font-medium border border-gray-300 text-gray-700 hover:bg-gray-50"
+                    >
+                        Lock vault
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setShowAddModal(true)}
+                        disabled={!canAddMore}
+                        className={`px-4 py-2 rounded-lg font-medium ${
+                            canAddMore
+                                ? 'bg-indigo-500 text-white hover:bg-indigo-600'
+                                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        }`}
+                    >
+                        Add item
+                    </button>
+                </div>
             </div>
 
             {error && (

@@ -3,6 +3,51 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 
+function IconLock(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 11h12v10H6z" />
+        </svg>
+    );
+}
+
+function IconCard(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 7h18v10H3z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M7 15h4" />
+        </svg>
+    );
+}
+
+function IconCog(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.4 15a7.8 7.8 0 00.1-1l2-1.2-2-3.4-2.3.7a7.8 7.8 0 00-1.7-1L14.9 5h-3.8l-.6 2.1a7.8 7.8 0 00-1.7 1L6.5 7.4l-2 3.4 2 1.2a7.8 7.8 0 000 2l-2 1.2 2 3.4 2.3-.7a7.8 7.8 0 001.7 1L11.1 21h3.8l.6-2.1a7.8 7.8 0 001.7-1l2.3.7 2-3.4-2-1.2z" />
+        </svg>
+    );
+}
+
+function IconPlus(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
+        </svg>
+    );
+}
+
+function IconSearch(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M11 19a8 8 0 100-16 8 8 0 000 16z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35" />
+        </svg>
+    );
+}
+
 function Dashboard() {
     const { user } = useAuth();
 
@@ -10,21 +55,21 @@ function Dashboard() {
         {
             title: 'Vault',
             description: 'Manage your passwords securely',
-            icon: '🔐',
+            icon: IconLock,
             link: '/vault',
             color: 'from-indigo-600 to-indigo-700',
         },
         {
             title: 'Billing',
             description: 'Manage your subscription',
-            icon: '💳',
+            icon: IconCard,
             link: '/billing',
             color: 'from-purple-600 to-purple-700',
         },
         {
             title: 'Settings',
             description: 'Update your preferences',
-            icon: '⚙️',
+            icon: IconCog,
             link: '/settings',
             color: 'from-blue-600 to-blue-700',
         },
@@ -66,7 +111,9 @@ function Dashboard() {
                             className={`p-6 bg-gradient-to-br ${card.color} rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 border border-white/10`}
                         >
                             <div className="flex items-center space-x-4">
-                                <div className="text-5xl">{card.icon}</div>
+                                <div className="h-12 w-12 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center">
+                                    <card.icon className="h-6 w-6 text-white" />
+                                </div>
                                 <div className="flex-1">
                                     <h3 className="text-xl font-semibold text-white mb-1">
                                         {card.title}
@@ -102,7 +149,9 @@ function Dashboard() {
                 className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl p-6"
             >
                 <div className="flex items-start space-x-4">
-                    <div className="text-3xl">🔒</div>
+                    <div className="h-10 w-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
+                        <IconLock className="h-5 w-5 text-indigo-300" />
+                    </div>
                     <div className="flex-1">
                         <h3 className="text-xl font-semibold text-white mb-2">
                             End-to-End Encryption
@@ -129,7 +178,9 @@ function Dashboard() {
                         className="p-4 bg-gray-700/50 hover:bg-gray-700 rounded-xl border border-gray-600 transition-all group"
                     >
                         <div className="flex items-center space-x-3">
-                            <span className="text-2xl">➕</span>
+                            <span className="h-9 w-9 rounded-lg bg-gray-800 border border-gray-600 flex items-center justify-center text-gray-200">
+                                <IconPlus className="h-5 w-5" />
+                            </span>
                             <div>
                                 <h4 className="font-semibold text-white group-hover:text-indigo-400 transition-colors">
                                     Add New Password
@@ -143,7 +194,9 @@ function Dashboard() {
                         className="p-4 bg-gray-700/50 hover:bg-gray-700 rounded-xl border border-gray-600 transition-all group"
                     >
                         <div className="flex items-center space-x-3">
-                            <span className="text-2xl">🔍</span>
+                            <span className="h-9 w-9 rounded-lg bg-gray-800 border border-gray-600 flex items-center justify-center text-gray-200">
+                                <IconSearch className="h-5 w-5" />
+                            </span>
                             <div>
                                 <h4 className="font-semibold text-white group-hover:text-indigo-400 transition-colors">
                                     Search Vault

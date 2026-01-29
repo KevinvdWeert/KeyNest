@@ -18,7 +18,6 @@ function Layout() {
                                 to="/dashboard" 
                                 className="flex items-center space-x-2 text-xl font-bold text-white hover:text-indigo-400 transition-colors"
                             >
-                                <span className="text-2xl">🔐</span>
                                 <span>KeyNest</span>
                             </NavLink>
 

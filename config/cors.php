@@ -15,11 +15,20 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // Include SPA auth endpoints for local Vite dev (cross-origin requests)
+    'paths' => ['api/*', 'login', 'register', 'logout', 'csrf-token', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    // When supports_credentials is true, '*' is not allowed.
+    'allowed_origins' => [
+        'http://127.0.0.1:8000',
+        'http://localhost:8000',
+        'http://127.0.0.1:5173',
+        'http://localhost:5173',
+        'http://127.0.0.1:5174',
+        'http://localhost:5174',
+    ],
 
     'allowed_origins_patterns' => [],
 
@@ -29,6 +38,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];

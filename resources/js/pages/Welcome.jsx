@@ -3,6 +3,33 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 
+function IconShield(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 3l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V7l8-4z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
+        </svg>
+    );
+}
+
+function IconBolt(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13 2L3 14h7l-1 8 12-14h-7l1-6z" />
+        </svg>
+    );
+}
+
+function IconGem(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 9l4-6h10l4 6-9 12L3 9z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 9h18" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 3l3 6 3-6" />
+        </svg>
+    );
+}
+
 function Welcome() {
     const { isAuthenticated } = useAuth();
 
@@ -50,7 +77,9 @@ function Welcome() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="flex justify-center mb-8"
                     >
-                        <div className="text-8xl">🔐</div>
+                        <div className="h-20 w-20 rounded-3xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
+                            <IconShield className="h-10 w-10 text-indigo-300" />
+                        </div>
                     </motion.div>
 
                     {/* Title */}
@@ -107,7 +136,9 @@ function Welcome() {
                         className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20"
                     >
                         <div className="p-6 bg-gray-800/50 backdrop-blur rounded-xl border border-gray-700">
-                            <div className="text-4xl mb-4">🔒</div>
+                            <div className="h-10 w-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center mb-4">
+                                <IconShield className="h-5 w-5 text-indigo-300" />
+                            </div>
                             <h3 className="text-xl font-semibold text-white mb-2">
                                 End-to-End Encryption
                             </h3>
@@ -117,7 +148,9 @@ function Welcome() {
                         </div>
 
                         <div className="p-6 bg-gray-800/50 backdrop-blur rounded-xl border border-gray-700">
-                            <div className="text-4xl mb-4">🚀</div>
+                            <div className="h-10 w-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center mb-4">
+                                <IconBolt className="h-5 w-5 text-indigo-300" />
+                            </div>
                             <h3 className="text-xl font-semibold text-white mb-2">
                                 Fast & Intuitive
                             </h3>
@@ -127,7 +160,9 @@ function Welcome() {
                         </div>
 
                         <div className="p-6 bg-gray-800/50 backdrop-blur rounded-xl border border-gray-700">
-                            <div className="text-4xl mb-4">💎</div>
+                            <div className="h-10 w-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center mb-4">
+                                <IconGem className="h-5 w-5 text-indigo-300" />
+                            </div>
                             <h3 className="text-xl font-semibold text-white mb-2">
                                 Flexible Plans
                             </h3>

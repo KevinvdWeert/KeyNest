@@ -20,7 +20,6 @@ function MasterPasswordModal({ onSubmit }) {
                 className="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full"
             >
                 <div className="text-center mb-6">
-                    <div className="text-5xl mb-4">🔐</div>
                     <h2 className="text-3xl font-bold text-white mb-2">Master Password</h2>
                     <p className="text-sm text-gray-400">
                         Enter your master password to unlock your vault.
@@ -51,7 +50,7 @@ function MasterPasswordModal({ onSubmit }) {
 
                 <div className="mt-6 text-center">
                     <p className="text-xs text-gray-500">
-                        ⚠️ Your master password is never sent to our servers.
+                        Important: Your master password is never sent to our servers.
                         All encryption happens on your device.
                     </p>
                 </div>

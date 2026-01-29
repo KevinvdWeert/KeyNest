@@ -6,6 +6,12 @@ import VaultItemCard from '../components/VaultItemCard';
 import AddItemModal from '../components/AddItemModal';
 import EditItemModal from '../components/EditItemModal';
 import MasterPasswordModal from '../components/MasterPasswordModal';
+import {
+    clearSessionMasterPassword,
+    getRememberMasterPassword,
+    getSessionMasterPassword,
+    setSessionMasterPassword,
+} from '../utils/securitySettings';
 
 function Vault() {
     const [items, setItems] = useState([]);
@@ -18,6 +24,19 @@ function Vault() {
     const [currentCount, setCurrentCount] = useState(0);
     const [canAddMore, setCanAddMore] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
+        const remember = getRememberMasterPassword();
+        if (!remember) {
+            clearSessionMasterPassword();
+            return;
+        }
+
+        const saved = getSessionMasterPassword();
+        if (saved) {
+            setMasterPassword(saved);
+        }
+    }, []);
 
     useEffect(() => {
         if (masterPassword) {
@@ -97,6 +116,16 @@ function Vault() {
 
     const handleMasterPasswordSubmit = (password) => {
         setMasterPassword(password);
+        if (getRememberMasterPassword()) {
+            setSessionMasterPassword(password);
+        } else {
+            clearSessionMasterPassword();
+        }
+    };
+
+    const handleLockVault = () => {
+        setMasterPassword(null);
+        clearSessionMasterPassword();
     };
 
     const filteredItems = items.filter(item => {
@@ -144,17 +173,27 @@ function Vault() {
                         {currentCount} / {maxItems === 9007199254740991 ? '∞' : maxItems} items
                     </p>
                 </div>
-                <button
-                    onClick={() => setShowAddModal(true)}
-                    disabled={!canAddMore}
-                    className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                        canAddMore
-                            ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg hover:shadow-xl'
-                            : 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                    }`}
-                >
-                    + Add Item
-                </button>
+                <div className="flex items-center gap-3">
+                    <button
+                        type="button"
+                        onClick={handleLockVault}
+                        className="px-4 py-3 rounded-lg font-semibold transition-all border border-gray-700 text-gray-200 hover:bg-gray-800"
+                    >
+                        Lock vault
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setShowAddModal(true)}
+                        disabled={!canAddMore}
+                        className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                            canAddMore
+                                ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg hover:shadow-xl'
+                                : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                        }`}
+                    >
+                        Add item
+                    </button>
+                </div>
             </motion.div>
 
             {/* Search Bar */}
@@ -228,7 +267,12 @@ function Vault() {
                     animate={{ opacity: 1 }}
                     className="text-center py-16 bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl"
                 >
-                    <div className="text-6xl mb-4">🔐</div>
+                    <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
+                        <svg className="h-8 w-8 text-indigo-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 11h12v10H6z" />
+                        </svg>
+                    </div>
                     <h3 className="text-xl font-semibold text-white mb-2">
                         {searchTerm ? 'No items found' : 'Your vault is empty'}
                     </h3>

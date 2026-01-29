@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
+import { getRememberMasterPassword, setRememberMasterPassword } from '../utils/securitySettings';
 
 function Settings() {
     const { user } = useAuth();
     const [activeTab, setActiveTab] = useState('profile');
+    const [rememberMasterPassword, setRememberMasterPasswordState] = useState(getRememberMasterPassword());
+
+    const handleRememberMasterPasswordChange = (nextValue) => {
+        setRememberMasterPasswordState(nextValue);
+        setRememberMasterPassword(nextValue);
+    };
 
     return (
         <div className="space-y-6">
@@ -152,8 +159,36 @@ function Settings() {
                             Your master password is used to encrypt your vault. It is never stored on our servers.
                             Make sure to remember it, as we cannot recover it if lost.
                         </p>
+
+                        <div className="mb-6">
+                            <div className="flex items-center justify-between gap-4">
+                                <div>
+                                    <p className="text-white font-medium">Remember master password (this session)</p>
+                                    <p className="text-sm text-gray-400">
+                                        Stores it in session storage so you don’t need to re-enter it when navigating.
+                                        Not recommended on shared devices.
+                                    </p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => handleRememberMasterPasswordChange(!rememberMasterPassword)}
+                                    className={`relative inline-flex h-6 w-11 flex-shrink-0 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
+                                        rememberMasterPassword ? 'bg-indigo-600' : 'bg-gray-600'
+                                    }`}
+                                    aria-pressed={rememberMasterPassword}
+                                    aria-label="Remember master password"
+                                >
+                                    <span
+                                        className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${
+                                            rememberMasterPassword ? 'translate-x-5' : 'translate-x-1'
+                                        }`}
+                                    />
+                                </button>
+                            </div>
+                        </div>
+
                         <div className="bg-yellow-500/10 border border-yellow-500/50 text-yellow-400 px-4 py-3 rounded-lg">
-                            <p className="font-medium">⚠️ Important</p>
+                            <p className="font-medium">Important</p>
                             <p className="text-sm mt-1">
                                 Changing your master password will require re-encrypting all your vault items.
                             </p>

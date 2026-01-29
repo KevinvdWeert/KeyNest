@@ -6,7 +6,7 @@
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="w-full max-w-md">
         <div class="bg-white shadow-md rounded-lg px-8 py-6">
-            <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">🔐 Create KeyNest Account</h2>
+            <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">Create KeyNest Account</h2>
             
             @if (session('error'))
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">

@@ -42,7 +42,6 @@ function Register() {
                 {/* Logo */}
                 <div className="text-center mb-8">
                     <Link to="/" className="inline-flex items-center space-x-2 text-2xl font-bold text-white hover:text-indigo-400 transition-colors">
-                        <span className="text-4xl">🔐</span>
                         <span>KeyNest</span>
                     </Link>
                 </div>
