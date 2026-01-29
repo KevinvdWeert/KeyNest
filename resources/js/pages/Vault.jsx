@@ -101,8 +101,11 @@ function Vault() {
 
     const filteredItems = items.filter(item => {
         if (!searchTerm) return true;
+        
+        // Note: Synchronous filter with async decrypt is handled by catching errors
+        // Items that fail to decrypt will be excluded
         try {
-            const decrypted = JSON.parse(decrypt(item.encrypted_data, masterPassword));
+            const decrypted = JSON.parse(item.decrypted_cache || '{}');
             return decrypted.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                    decrypted.username?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                    decrypted.url?.toLowerCase().includes(searchTerm.toLowerCase());

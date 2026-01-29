@@ -40,9 +40,9 @@ class SubscriptionController extends Controller
 
         if (! $priceId) {
             if ($request->expectsJson()) {
-                return response()->json(['error' => 'Invalid plan selected.'], 400);
+                return response()->json(['message' => 'Invalid plan selected.'], 400);
             }
-            return redirect()->back()->with('error', 'Invalid plan selected.');
+            return redirect()->back()->with('message', 'Invalid plan selected.');
         }
 
         $checkout = $user->newSubscription('default', $priceId)

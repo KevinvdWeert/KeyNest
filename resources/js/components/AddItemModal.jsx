@@ -167,7 +167,7 @@ function AddItemModal({ masterPassword, onClose, onAdd }) {
                         </label>
                         <div className="flex gap-2">
                             <input
-                                type="text"
+                                type="password"
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}

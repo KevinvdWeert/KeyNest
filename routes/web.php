@@ -36,7 +36,7 @@ Route::middleware('auth')->prefix('billing')->name('billing.')->group(function (
     Route::post('/cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
 });
 
-// SPA Catch-all - React Router handles all routes
+// SPA Catch-all - React Router handles all routes (but not /api/*)
 Route::get('/{path?}', function () {
     return view('app');
-})->where('path', '.*')->name('app');
+})->where('path', '^(?!api).*$')->name('app');
