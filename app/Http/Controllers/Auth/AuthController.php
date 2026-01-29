@@ -32,7 +32,20 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => 'Login successful',
+                    'user' => $request->user(),
+                ]);
+            }
+
             return redirect()->intended('/dashboard');
+        }
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'The provided credentials do not match our records.',
+            ], 422);
         }
 
         return back()->withErrors([
@@ -60,6 +73,12 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors(),
+                ], 422);
+            }
             return back()->withErrors($validator)->withInput();
         }
 
@@ -70,6 +89,13 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Registration successful',
+                'user' => $user,
+            ], 201);
+        }
 
         return redirect('/dashboard');
     }
@@ -82,6 +108,12 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Logout successful',
+            ]);
+        }
 
         return redirect('/');
     }

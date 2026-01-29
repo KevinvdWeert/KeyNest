@@ -30,6 +30,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 // Billing Routes (redirect to React app)
 Route::middleware('auth')->prefix('billing')->name('billing.')->group(function () {
+    Route::get('/', [SubscriptionController::class, 'index'])->name('index');
     Route::get('/checkout/{plan}', [SubscriptionController::class, 'checkout'])->name('checkout');
     Route::get('/portal', [SubscriptionController::class, 'portal'])->name('portal');
     Route::post('/cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
