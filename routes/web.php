@@ -15,41 +15,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // CSRF Token Refresh Route (with rate limiting)
 Route::get('/csrf-token', function () {
     return response()->json(['token' => csrf_token()]);
 })->name('csrf-token')->middleware('throttle:60,1');
 
-// Authentication Routes
+// Authentication Routes (API-style, no views)
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
-    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-// Protected Routes
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
-    Route::get('/vault', function () {
-        return view('vault');
-    })->name('vault');
-
-    // Billing Routes
-    Route::prefix('billing')->name('billing.')->group(function () {
-        Route::get('/', [SubscriptionController::class, 'index'])->name('index');
-        Route::get('/checkout/{plan}', [SubscriptionController::class, 'checkout'])->name('checkout');
-        Route::get('/success', [SubscriptionController::class, 'success'])->name('success');
-        Route::get('/portal', [SubscriptionController::class, 'portal'])->name('portal');
-        Route::post('/cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
-    });
+// Billing Routes (redirect to React app)
+Route::middleware('auth')->prefix('billing')->name('billing.')->group(function () {
+    Route::get('/checkout/{plan}', [SubscriptionController::class, 'checkout'])->name('checkout');
+    Route::get('/portal', [SubscriptionController::class, 'portal'])->name('portal');
+    Route::post('/cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
 });
+
+// SPA Catch-all - React Router handles all routes
+Route::get('/{path?}', function () {
+    return view('app');
+})->where('path', '.*')->name('app');
