@@ -5,28 +5,29 @@ import { useAuth } from '../contexts/AuthContext';
 
 function IconLock(props) {
     return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 11h12v10H6z" />
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M7 11V8a5 5 0 0110 0v3" />
+            <path d="M6 11h12v10H6z" />
+            <path d="M12 15v2" />
         </svg>
     );
 }
 
 function IconCard(props) {
     return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 7h18v10H3z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M7 15h4" />
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M3 7.5A2.5 2.5 0 015.5 5h13A2.5 2.5 0 0121 7.5v9A2.5 2.5 0 0118.5 19h-13A2.5 2.5 0 013 16.5v-9z" />
+            <path d="M3 9h18" />
+            <path d="M7 15h4" />
         </svg>
     );
 }
 
 function IconCog(props) {
     return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.4 15a7.8 7.8 0 00.1-1l2-1.2-2-3.4-2.3.7a7.8 7.8 0 00-1.7-1L14.9 5h-3.8l-.6 2.1a7.8 7.8 0 00-1.7 1L6.5 7.4l-2 3.4 2 1.2a7.8 7.8 0 000 2l-2 1.2 2 3.4 2.3-.7a7.8 7.8 0 001.7 1L11.1 21h3.8l.6-2.1a7.8 7.8 0 001.7-1l2.3.7 2-3.4-2-1.2z" />
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z" />
+            <path d="M19.4 15a7.7 7.7 0 00.14-1.5c0-.5-.05-1-.14-1.5l2.06-1.2-2-3.46-2.36.78a7.7 7.7 0 00-2.6-1.5L14.9 5h-3.8l-.6 2.35a7.7 7.7 0 00-2.6 1.5L5.54 8.07l-2 3.46 2.06 1.2c-.09.5-.14 1-.14 1.5 0 .5.05 1 .14 1.5l-2.06 1.2 2 3.46 2.36-.78a7.7 7.7 0 002.6 1.5L11.1 21h3.8l.6-2.35a7.7 7.7 0 002.6-1.5l2.36.78 2-3.46L19.4 15z" />
         </svg>
     );
 }

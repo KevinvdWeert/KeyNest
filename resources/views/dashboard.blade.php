@@ -5,7 +5,20 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="py-6">
-        <h1 class="text-3xl font-bold text-gray-900 mb-6">Welcome to KeyNest</h1>
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Welcome to KeyNest</h1>
+            <a
+                href="/settings"
+                class="inline-flex items-center justify-center h-10 w-10 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                aria-label="Settings"
+                title="Settings"
+            >
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" />
+                    <path d="M19.4 15a1.9 1.9 0 0 0 .38 2.09l.05.05a2.3 2.3 0 1 1-3.25 3.25l-.05-.05a1.9 1.9 0 0 0-2.09-.38 1.9 1.9 0 0 0-1.16 1.74V22a2.3 2.3 0 0 1-4.6 0v-.07a1.9 1.9 0 0 0-1.16-1.74 1.9 1.9 0 0 0-2.09.38l-.05.05a2.3 2.3 0 1 1-3.25-3.25l.05-.05A1.9 1.9 0 0 0 4.6 15a1.9 1.9 0 0 0-1.74-1.16H2.8a2.3 2.3 0 0 1 0-4.6h.07A1.9 1.9 0 0 0 4.6 7.1a1.9 1.9 0 0 0-.38-2.09l-.05-.05a2.3 2.3 0 1 1 3.25-3.25l.05.05A1.9 1.9 0 0 0 9.56 2.1 1.9 1.9 0 0 0 10.72.36V.3a2.3 2.3 0 0 1 4.6 0v.07a1.9 1.9 0 0 0 1.16 1.74 1.9 1.9 0 0 0 2.09-.38l.05-.05a2.3 2.3 0 1 1 3.25 3.25l-.05.05A1.9 1.9 0 0 0 21.9 7.1c.18.49.07 1.05-.28 1.43-.2.2-.46.34-.74.4H22a2.3 2.3 0 0 1 0 4.6h-.07a1.9 1.9 0 0 0-1.74 1.16Z" />
+                </svg>
+            </a>
+        </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Vault Card -->

@@ -99,8 +99,17 @@ apiClient.interceptors.response.use(
         }
 
         if (error.response?.status === 401) {
-            // Redirect to login if unauthorized
-            if (!window.location.pathname.includes('/login')) {
+            const currentPath = window.location.pathname;
+            const requestUrl = error.config?.url || '';
+
+            // Don't redirect for auth probing (guest users calling /api/user).
+            const isAuthProbe = requestUrl.includes('/api/user');
+
+            // Public SPA routes should never hard-redirect on 401.
+            const isPublicRoute = currentPath === '/' || currentPath.startsWith('/login') || currentPath.startsWith('/register');
+
+            // Redirect to login only when a protected view is active.
+            if (!isAuthProbe && !isPublicRoute) {
                 window.location.href = '/login';
             }
         }
